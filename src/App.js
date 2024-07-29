@@ -4,10 +4,13 @@ import React from 'react';
 
 function App() {
   return (
-   React.createElement("div", {
-  className: "App"},
-   " Babel training "
-  )
+    <div 
+    className="App"
+     style={{
+      color:'red',
+      backgroundColor:'black'
+    }}
+      > Babel training </div>
 )
   }
 
