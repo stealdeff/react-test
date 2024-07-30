@@ -1,15 +1,14 @@
 
 import './App.css';
 import React from 'react';
-import SimpleCounter  from './components/CurrencyRatesByDate'
+import SimpleCounter  from './components/CurrencyRatesByDate';
+import DateInput from './components/CurrencyRatesByDate'
 function App() {
   return (
-    <div 
-    className="App"
-     
-      > Babel training 
+    <>
       <SimpleCounter/>
-      </div>
+      <DateInput/>
+      </>
       
 )
 
