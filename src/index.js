@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom/client';
 // import App from './App';
 
 import {DateInput} from './components/CurrencyRatesByDate'
-
+import CurScaleComponent from './components/CurrencyRatesByDate'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(<DateInput/>)
+root.render(<CurScaleComponent/>)
 
 
 // const ul1=(
