@@ -1,22 +1,19 @@
 
 import './App.css';
 import React from 'react';
+import SimpleCounter  from './components/CurrencyRatesByDate'
+function App() {
+  return (
+    <div 
+    className="App"
+     
+      > Babel training 
+      <SimpleCounter/>
+      </div>
+      
+)
 
-
-
-
-
-// function App() {
-//   return (
-//     <div 
-//     className="App"
-//      style={{
-//       color:'red',
-//       backgroundColor:'black'
-//     }}
-//       > Babel training </div>
-// )
-//   }
+  }
 
 
 export default App;
