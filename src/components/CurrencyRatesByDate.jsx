@@ -1,15 +1,28 @@
 import React, { useState } from 'react';
 
-export const  DateInput=()=> {
+export const DateInput=() => {
     const [selectedDate, setSelectedDate] = useState('');
   
     const handleDateChange = (event) => {
-      setSelectedDate(event.target.value);
+      const inputDate = new Date(event.target.value);
+      const currentDate = new Date();
+  
+      if (
+        inputDate.getDate() !== parseInt(event.target.value.split('-')[2], 10) ||
+        inputDate.getMonth() + 1 !== parseInt(event.target.value.split('-')[1], 10) ||
+        inputDate.getFullYear() !== parseInt(event.target.value.split('-')[0], 10) ||
+        inputDate > currentDate
+      ) {
+        alert('Please enter a valid date.');
+        setSelectedDate('');
+      } else {
+        setSelectedDate(event.target.value);
+      }
     };
   
     return (
       <div>
-        <label htmlFor="dateInput">Введите дату:</label>
+        <label htmlFor="dateInput">Select a date:</label>
         <input
           type="date"
           id="dateInput"
@@ -20,6 +33,7 @@ export const  DateInput=()=> {
       </div>
     );
   }
+  
   
  
 
