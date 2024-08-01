@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { Link } from 'react-router-dom';
 const ExchangeRatesComponent = () => {
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   const [exchangeRates, setExchangeRates] = useState([]);
@@ -17,7 +17,6 @@ const ExchangeRatesComponent = () => {
       console.error('Error fetching exchange rates:', error);
     }
   };
-
   return (
     <div>
       <h2>Exchange Rates</h2>
@@ -48,8 +47,8 @@ const ExchangeRatesComponent = () => {
           </tbody>
         </table>
       )}
+      <Link to="/new-page">Перейти на новую страницу</Link>
     </div>
   );
 };
-
 export default ExchangeRatesComponent;
