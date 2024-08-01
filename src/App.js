@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
-import ExchangeRatesComponent from './components/ExchangeRatesComponent';
-import CurrencyRatesByPeriod from './components/CurrencyRatesByPeriod';
+import ExchangeRatesComponent from './components/CurrencyRatesByDate';
+import NewPage from './components/CurrencyRatesByPeriod';
 
 const App = () => {
   return (
@@ -9,17 +9,17 @@ const App = () => {
       <nav>
         <ul>
           <li>
-            <Link to="/">Exchange Rates</Link>
+            <Link to="/CurrencyRatesByDate">Экран получения данных по валютам за определенный день.</Link>
           </li>
           <li>
-            <Link to="/currency-rates-by-period">Currency Rates By Period</Link>
+            <Link to="/CurrencyRatesByPeriod">Экран отображения курса любой валюты в динамике</Link>
           </li>
         </ul>
       </nav>
 
       <Routes>
-        <Route path="/currency-rates-by-period" element={<CurrencyRatesByPeriod />} />
-        <Route path="/" element={<ExchangeRatesComponent />} />
+        <Route path="/CurrencyRatesByPeriod" element={<NewPage />} />
+        <Route path="/CurrencyRatesByDate" element={<ExchangeRatesComponent />} />
       </Routes>
     </div>
   );
