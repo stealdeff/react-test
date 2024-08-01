@@ -1,70 +1,55 @@
 import React, { useState } from 'react';
 
-export const DateInput=() => {
-    const [selectedDate, setSelectedDate] = useState('');
-  
-    const handleDateChange = (event) => {
-      const inputDate = new Date(event.target.value);
-      const currentDate = new Date();
-  
-      if (
-        inputDate.getDate() !== parseInt(event.target.value.split('-')[2], 10) ||
-        inputDate.getMonth() + 1 !== parseInt(event.target.value.split('-')[1], 10) ||
-        inputDate.getFullYear() !== parseInt(event.target.value.split('-')[0], 10) ||
-        inputDate > currentDate
-      ) {
-        alert('Please enter a valid date.');
-        setSelectedDate('');
-      } else {
-        setSelectedDate(event.target.value);
-      }
-    };
-  
-    return (
-      <div>
-        <label htmlFor="dateInput">Select a date:</label>
-        <input
-          type="date"
-          id="dateInput"
-          value={selectedDate}
-          onChange={handleDateChange}
-        />
-        <p>Selected date: {selectedDate}</p>
-      </div>
-    );
-  }
-  export const  CurScaleComponent=()=> {
-    const [dateInput, setDateInput] = useState('');
-    const [curScale, setCurScale] = useState('');
+const ExchangeRatesComponent = () => {
+  const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
+  const [exchangeRates, setExchangeRates] = useState([]);
 
-    const getCurScale = () => {
-        fetch('https://api.nbrb.by/exrates/currencies')
-            .then(response => response.json())
-            .then(data => {
-                const curScaleValue = data.find(item => item.Cur_DateStart.includes(dateInput))?.Cur_Scale;
-                setCurScale(curScaleValue || 'Нет данных');
-            })
-            .catch(error => console.error('Ошибка при получении данных:', error));
-    };
+  const handleDateChange = (event) => {
+    setDate(event.target.value);
+  };
 
-    return (
-        <div className="container">
-            <h2>Получить значение Cur_Scale по дате</h2>
-            <label htmlFor="date">Введите дату (гггг-мм-дд):</label>
-            <input
-                type="text"
-                id="date"
-                placeholder="Например, 1991-01-01"
-                value={dateInput}
-                onChange={(e) => setDateInput(e.target.value)}
-            />
-            <button onClick={getCurScale}>Смотреть</button>
-            <div id="result">Cur_Scale на дату {dateInput}: {curScale}</div>
-        </div>
-    );
-}
+  const fetchExchangeRates = async () => {
+    try {
+      const response = await fetch(`https://api.nbrb.by/exrates/rates?ondate=${date}&periodicity=0`);
+      const data = await response.json();
+      setExchangeRates(data);
+    } catch (error) {
+      console.error('Error fetching exchange rates:', error);
+    }
+  };
 
-  
- 
+  return (
+    <div>
+      <h2>Exchange Rates</h2>
+      <label>
+        Date:
+        <input type="date" value={date} onChange={handleDateChange} />
+      </label>
+      <button onClick={fetchExchangeRates}>Get Exchange Rates</button>
+      {exchangeRates.length > 0 && (
+        <table>
+          <thead>
+            <tr>
+              <th>Currency</th>
+              <th>Code</th>
+              <th>Scale</th>
+              <th>Rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            {exchangeRates.map((rate) => (
+              <tr key={rate.Cur_ID}>
+                <td>{rate.Cur_Name}</td>
+                <td>{rate.Cur_Abbreviation}</td>
+                <td>{rate.Cur_Scale}</td>
+                <td>{rate.Cur_OfficialRate}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  );
+};
 
-export default CurScaleComponent;
+export default ExchangeRatesComponent;

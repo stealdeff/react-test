@@ -1,14 +1,13 @@
 
 import './App.css';
 import React from 'react';
-import DateInput from './components/CurrencyRatesByDate'
-import CurScaleComponent from './components/CurrencyRatesByDate'
+import ExchangeRatesComponent  from './components/CurrencyRatesByDate';
+import DateInput from './components/CurrencyRatesByDate';
 function App() {
   return (
     <>
-      <SimpleCounter/>
+      <CExchangeRatesComponent />
       <DateInput/>
-      <CurScaleComponent/>
       </>
       
 )

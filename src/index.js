@@ -2,12 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 // import App from './App';
 
-import {DateInput} from './components/CurrencyRatesByDate'
-import CurScaleComponent from './components/CurrencyRatesByDate'
+import ExchangeRatesComponent  from './components/CurrencyRatesByDate'
+import DateInput from './components/CurrencyRatesByDate';
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
 root.render(<DateInput/>)
-root.render(<CurScaleComponent/>)
+root.render(<ExchangeRatesComponent />)
 
 
 // const ul1=(
