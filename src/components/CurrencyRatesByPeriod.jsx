@@ -1,17 +1,57 @@
-import React from 'react';
-//просто пример 
-const NewPage = () => {
-  return (
-    <div>
-      <header>
-        <h1>Welcome to the New Page</h1>
-      </header>
-      <main>
-        <p>Экран отображения курса любой валюты в динамике
+import React, { useState } from 'react';
+const DinamicRatesComponent  = () => {
+    const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
+    const [exchangeRates, setExchangeRates] = useState([]);
+  
+    const handleDateChange = (event) => {
+      setDate(event.target.value);
+    };
+  
+    const fetchExchangeRates = async () => {
+      try {
+        const response = await fetch(`https://api.nbrb.by/exrates/rates?ondate=${date}&periodicity=0`);
+        const data = await response.json();
+        setExchangeRates(data);
+      } catch (error) {
+        console.error('Error fetching exchange rates:', error);
+      }
+    };
+    return (
+      <div>
+        <h2>Exchange Rates</h2>
+        <label>
+          Date from:
+          <input type="date" value={date} onChange={handleDateChange} />
+        </label>
+        <label>
+         <p>Date to:
+        <input type="date" value={date} onChange={handleDateChange} />
         </p>
-      </main>
-    </div>
-  );
-};
-
-export default NewPage;
+        </label>
+        <button onClick={fetchExchangeRates}>Get Exchange Rates</button>
+        {exchangeRates.length > 0 && (
+          <table>
+            <thead>
+              <tr>
+                <th>Currency</th>
+                <th>Code</th>
+                <th>Scale</th>
+                <th>Rate</th>
+              </tr>
+            </thead>
+            <tbody>
+              {exchangeRates.map((rate) => (
+                <tr key={rate.Cur_ID}>
+                  <td>{rate.Cur_Name}</td>
+                  <td>{rate.Cur_Abbreviation}</td>
+                  <td>{rate.Cur_Scale}</td>
+                  <td>{rate.Cur_OfficialRate}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
+    );
+  };
+export default DinamicRatesComponent ;

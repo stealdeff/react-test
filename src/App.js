@@ -1,10 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+//import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 // import App from './App';
 import Home from './components/Home';
 import ExchangeRatesComponent from './components/CurrencyRatesByDate';
-import NewPage from './components/CurrencyRatesByPeriod';
+import DinamicRatesComponent from './components/CurrencyRatesByPeriod';
 
 // const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -29,7 +29,7 @@ const App = ()=>{
     <Routes>
       <Route path="/components/Home" element={<Home />} />
       <Route path="/CurrencyRatesByDate" element={<ExchangeRatesComponent />} />
-      <Route path="/CurrencyRatesByPeriod" element={<NewPage />} />
+      <Route path="/CurrencyRatesByPeriod" element={<DinamicRatesComponent />} />
     </Routes>
     </div>
   </Router>
