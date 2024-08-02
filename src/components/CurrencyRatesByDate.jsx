@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 const ExchangeRatesComponent = () => {
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   const [exchangeRates, setExchangeRates] = useState([]);

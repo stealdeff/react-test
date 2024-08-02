@@ -1,19 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import App from './App';
+// import App from './App';
 import Home from './components/Home';
 import ExchangeRatesComponent from './components/CurrencyRatesByDate';
 import NewPage from './components/CurrencyRatesByPeriod';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+// const root = ReactDOM.createRoot(document.getElementById('root'));
 
-root.render(
+const App = ()=>{
+  return(
   <Router>
+    <div>
     <nav>
       <ul>
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/components/Home">Home</Link>
         </li>
         <li>
           <Link to="/CurrencyRatesByDate">Экран получения данных по валютам за определенный день</Link>
@@ -25,10 +27,12 @@ root.render(
     </nav>
 
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/components/Home" element={<Home />} />
       <Route path="/CurrencyRatesByDate" element={<ExchangeRatesComponent />} />
       <Route path="/CurrencyRatesByPeriod" element={<NewPage />} />
     </Routes>
+    </div>
   </Router>
 );
+};
 export default App;
