@@ -47,7 +47,6 @@ const ExchangeRatesComponent = () => {
           </tbody>
         </table>
       )}
-      <Link to="/new-page">Перейти на новую страницу</Link>
     </div>
   );
 };
