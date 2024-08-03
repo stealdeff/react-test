@@ -1,57 +1,103 @@
-import React, { useState } from 'react';
-const DinamicRatesComponent  = () => {
-    const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
-    const [exchangeRates, setExchangeRates] = useState([]);
-  
-    const handleDateChange = (event) => {
-      setDate(event.target.value);
-    };
-  
-    const fetchExchangeRates = async () => {
+
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+const CurrencyDynamicsScreen = () => {
+  const [currencies, setCurrencies] = useState([]);
+  const [selectedCurrency, setSelectedCurrency] = useState('');
+  const [dateFrom, setDateFrom] = useState('');
+  const [dateTo, setDateTo] = useState('');
+  const [currencyDynamics, setCurrencyDynamics] = useState([]);
+
+  useEffect(() => {
+    // Загружаем список доступных валют
+    const fetchCurrencies = async () => {
       try {
-        const response = await fetch(`https://api.nbrb.by/exrates/rates?ondate=${date}&periodicity=0`);
-        const data = await response.json();
-        setExchangeRates(data);
+        const response = await axios.get('https://api.nbrb.by/exrates/currencies');
+        setCurrencies(response.data);
       } catch (error) {
-        console.error('Error fetching exchange rates:', error);
+        console.error('Ошибка при загрузке списка валют:', error);
       }
     };
-    return (
-      <div>
-        <h2>Exchange Rates</h2>
+    fetchCurrencies();
+  }, []);
+
+  const handleCurrencyChange = (event) => {
+    setSelectedCurrency(event.target.value);
+  };
+
+  const handleDateFromChange = (event) => {
+    setDateFrom(event.target.value);
+  };
+
+  const handleDateToChange = (event) => {
+    setDateTo(event.target.value);
+  };
+
+  const fetchCurrencyDynamics = async () => {
+    try {
+      const response = await axios.get(`https://api.nbrb.by/exrates/rates/dynamics/${selectedCurrency}?startDate=${dateFrom}&endDate=${dateTo}`);
+      setCurrencyDynamics(response.data);
+    } catch (error) {
+      console.error('Ошибка при загрузке динамики курса валюты:', error);
+    }
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    fetchCurrencyDynamics();
+  };
+
+  return (
+    <div>
+      <h1>Экран отображения курса любой валюты в динамике</h1>
+
+      <form onSubmit={handleSubmit}>
         <label>
-          Date from:
-          <input type="date" value={date} onChange={handleDateChange} />
+          Дата с:
+          <input type="date" value={dateFrom} onChange={handleDateFromChange} />
         </label>
         <label>
-         <p>Date to:
-        <input type="date" value={date} onChange={handleDateChange} />
-        </p>
+          Дата по:
+          <input type="date" value={dateTo} onChange={handleDateToChange} />
         </label>
-        <button onClick={fetchExchangeRates}>Get Exchange Rates</button>
-        {exchangeRates.length > 0 && (
+        <label>
+          Валюта:
+          <select value={selectedCurrency} onChange={handleCurrencyChange}>
+            <option value="">Выберите валюту</option>
+            {currencies.map((currency) => (
+              <option key={currency.Cur_ID} value={currency.Cur_ID}>
+                {currency.Cur_Name}
+              </option>
+            ))}
+          </select>
+        </label>
+        <button type="submit">Отправить запрос</button>
+      </form>
+
+      {currencyDynamics.length > 0 && (
+        <div>
+          <h2>Динамика курса {selectedCurrency}</h2>
           <table>
             <thead>
               <tr>
-                <th>Currency</th>
-                <th>Code</th>
-                <th>Scale</th>
-                <th>Rate</th>
+                <th>Дата</th>
+                <th>Курс</th>
               </tr>
             </thead>
             <tbody>
-              {exchangeRates.map((rate) => (
-                <tr key={rate.Cur_ID}>
-                  <td>{rate.Cur_Name}</td>
-                  <td>{rate.Cur_Abbreviation}</td>
-                  <td>{rate.Cur_Scale}</td>
-                  <td>{rate.Cur_OfficialRate}</td>
+              {currencyDynamics.map((rate) => (
+                <tr key={rate.Date}>
+                  <td>{rate.Date}</td>
+                  <td>{rate.Rate}</td>
                 </tr>
               ))}
             </tbody>
           </table>
-        )}
-      </div>
-    );
-  };
-export default DinamicRatesComponent ;
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default CurrencyDynamicsScreen;
