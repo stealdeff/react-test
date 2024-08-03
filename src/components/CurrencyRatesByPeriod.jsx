@@ -1,22 +1,22 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import moment from 'moment';
 const CurrencyDynamicsScreen = () => {
   const [currencies, setCurrencies] = useState([]);
   const [selectedCurrency, setSelectedCurrency] = useState('');
   const [dateFrom, setDateFrom] = useState('');
   const [dateTo, setDateTo] = useState('');
   const [currencyDynamics, setCurrencyDynamics] = useState([]);
-
+ const[error,setError]=useState('');
   useEffect(() => {
-    // Загружаем список доступных валют
     const fetchCurrencies = async () => {
       try {
         const response = await axios.get('https://api.nbrb.by/exrates/currencies');
         setCurrencies(response.data);
       } catch (error) {
         console.error('Ошибка при загрузке списка валют:', error);
+        setError('Ошибка при загрузке списка валют. Попробуйте позже.');
       }
     };
     fetchCurrencies();
@@ -37,9 +37,16 @@ const CurrencyDynamicsScreen = () => {
   const fetchCurrencyDynamics = async () => {
     try {
       const response = await axios.get(`https://api.nbrb.by/exrates/rates/dynamics/${selectedCurrency}?startDate=${dateFrom}&endDate=${dateTo}`);
+      if(response.data.length===0)
+      {
+        setError('Нет данных по динамике курса выбранной валюты за указанный период.');
+    } else {
       setCurrencyDynamics(response.data);
-    } catch (error) {
+      setError(null);
+    }
+ } catch (error) {
       console.error('Ошибка при загрузке динамики курса валюты:', error);
+      setError('Ошибка при загрузке данных. Попробуйте позже.');
     }
   };
 
@@ -75,9 +82,11 @@ const CurrencyDynamicsScreen = () => {
         <button type="submit">Отправить запрос</button>
       </form>
 
+      {error && <div style={{ color: 'red' }}>{error}</div>}
+
       {currencyDynamics.length > 0 && (
         <div>
-          <h2>Динамика курса {selectedCurrency}</h2>
+          <h2>Динамика курса {currencies.find((c) => c.Cur_ID === parseInt(selectedCurrency))?.Cur_Name}</h2>
           <table>
             <thead>
               <tr>
@@ -88,8 +97,8 @@ const CurrencyDynamicsScreen = () => {
             <tbody>
               {currencyDynamics.map((rate) => (
                 <tr key={rate.Date}>
-                  <td>{rate.Date}</td>
-                  <td>{rate.Rate}</td>
+                  <td>{moment(rate.Date).format('DD.MM.YYYY')}</td>
+                  <td>{rate.Cur_OfficialRate}</td>
                 </tr>
               ))}
             </tbody>
@@ -99,5 +108,6 @@ const CurrencyDynamicsScreen = () => {
     </div>
   );
 };
+
 
 export default CurrencyDynamicsScreen;
