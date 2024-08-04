@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Home from './components/Home';
 import ExchangeRatesComponent from './components/CurrencyRatesByDate';
 import DinamicRatesComponent from './components/CurrencyRatesByPeriod';
-
+import Converter from './components/CurrencyConverter';
 // const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const App = ()=>{
@@ -23,6 +23,9 @@ const App = ()=>{
         <li>
           <Link to="/CurrencyRatesByPeriod">Экран отображения курса любой валюты в динамике</Link>
         </li>
+        <li>
+          <Link to="/CurrencyConverter">Экран конвертера валют</Link>
+        </li>
       </ul>
     </nav>
 
@@ -30,6 +33,7 @@ const App = ()=>{
       <Route path="/components/Home" element={<Home />} />
       <Route path="/CurrencyRatesByDate" element={<ExchangeRatesComponent />} />
       <Route path="/CurrencyRatesByPeriod" element={<DinamicRatesComponent />} />
+      <Route path="/CurrencyConverter" element={<Converter />} />
     </Routes>
     </div>
   </Router>

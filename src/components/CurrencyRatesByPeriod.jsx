@@ -86,7 +86,7 @@ const CurrencyDynamicsScreen = () => {
 
       {currencyDynamics.length > 0 && (
         <div>
-          <h2>Динамика курса {currencies.find((c) => c.Cur_ID === parseInt(selectedCurrency))?.Cur_Name}</h2>
+          <h2>Динамика курса: {currencies.find((c) => c.Cur_ID === parseInt(selectedCurrency))?.Cur_Name}</h2>
           <table>
             <thead>
               <tr>
