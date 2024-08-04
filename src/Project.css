@@ -1,7 +1,8 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #696464;
   }
   
   .container {
@@ -15,9 +16,13 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #333;
-    color: #fff;
-    padding: 10px 0;
+    background-color: #212121;
+    color: #eded1d;
+    padding: 15px 0;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
   }
   
   .nav ul {
@@ -28,20 +33,23 @@ body {
   }
   
   .nav li {
-    margin-right: 20px;
+    margin-right: 40px;
+    font-size: large;
   }
   
   .nav a {
-    color: #fff;
+    color: #eded1d;
     text-decoration: none;
     padding: 10px;
     border-radius: 5px;
     transition: background-color 0.3s ease, color 0.3s ease;
+    font-size: 1.1rem;
+    font-weight: 500;
   }
   
   .nav a:hover {
-    background-color: #555;
-    color: #ddd;
+    background-color: #7b7730;
+    color: #f5e90d;
   }
   
   /* Toggle button styles */
@@ -54,6 +62,7 @@ body {
     text-align: center;
     font-size: 1.2rem;
     border: none;
+    border-radius: 5px;
   }
   
   .toggle-button:before {
@@ -72,7 +81,7 @@ body {
   
   #toggle:checked ~ .nav li {
     margin-right: 0;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
   }
   
   /* Responsive styles */
