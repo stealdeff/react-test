@@ -58,6 +58,7 @@ const CurrencyDynamicsScreen = () => {
 
   return (
     <div>
+        
       <h1>Экран отображения курса любой валюты в динамике</h1>
 
       <form onSubmit={handleSubmit}>
@@ -95,6 +96,7 @@ const CurrencyDynamicsScreen = () => {
                 <th>Курс</th>
               </tr>
             </thead>
+            
             <tbody>
               {currencyDynamics.map((rate) => (
                 <tr key={rate.Date}>

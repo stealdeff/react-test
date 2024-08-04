@@ -16,8 +16,21 @@ button[type="submit"] {
 
   margin-right: 10px;
 }
-
-
+#curdate
+{
+  background-color: #f4e664;
+  color: #000;
+  border: none;
+  border-radius: 7px;
+  font-size: 18px;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 10px;
+  justify-content: center;
+  height: 45px;
+  
+}
 input[type="date"]:focus,
 input[type="text"]:focus,
 select:focus,
@@ -67,3 +80,16 @@ label {
   color: #000;
   
 } 
+
+
+
+
+
+
+
+
+
+
+
+
+

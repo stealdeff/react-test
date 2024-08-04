@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './currencyPeriod.css'
 const ExchangeRatesComponent = () => {
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   const [exchangeRates, setExchangeRates] = useState([]);
@@ -23,7 +24,7 @@ const ExchangeRatesComponent = () => {
         Date:
         <input type="date" value={date} onChange={handleDateChange} />
       </label>
-      <button onClick={fetchExchangeRates}>Get Exchange Rates</button>
+      <button id="curdate" onClick={fetchExchangeRates}>Get Exchange Rates</button>
       {exchangeRates.length > 0 && (
         <table>
           <thead>
@@ -34,6 +35,7 @@ const ExchangeRatesComponent = () => {
               <th>Rate</th>
             </tr>
           </thead>
+          
           <tbody>
             {exchangeRates.map((rate) => (
               <tr key={rate.Cur_ID}>
