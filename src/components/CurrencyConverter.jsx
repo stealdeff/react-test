@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './currencyPeriod.css'
 
 const CurrencyConverter = () => {
@@ -22,10 +22,15 @@ const CurrencyConverter = () => {
     fetchRates();
   }, []);
 
+  const memoizedGetCurrencyId = useCallback((currency) => {
+    const currencyData = rates.find((rate) => rate.Cur_Abbreviation === currency);
+    return currencyData?.Cur_ID || null;
+  }, [rates]);
+
   useEffect(() => {
     const convertCurrency = async () => {
-      const fromId = getCurrencyId(fromCurrency);
-      const toId = getCurrencyId(toCurrency);
+      const fromId = memoizedGetCurrencyId(fromCurrency);
+      const toId = memoizedGetCurrencyId(toCurrency);
 
       const fromRate = rates.find((rate) => rate.Cur_ID === fromId)?.Cur_OfficialRate || 1;
       const toRate = rates.find((rate) => rate.Cur_ID === toId)?.Cur_OfficialRate || 1;
@@ -35,12 +40,7 @@ const CurrencyConverter = () => {
     };
 
     convertCurrency();
-  }, [amount, fromCurrency, toCurrency, rates]);
-
-  const getCurrencyId = (currency) => {
-    const currencyData = rates.find((rate) => rate.Cur_Abbreviation === currency);
-    return currencyData?.Cur_ID || null;
-  };
+  }, [amount, fromCurrency, toCurrency, rates, memoizedGetCurrencyId]);
 
   return (
     <div>
