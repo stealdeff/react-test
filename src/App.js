@@ -17,10 +17,10 @@ const App = ()=>{
           <Link to="/components/Home">Home</Link>
         </li>
         <li>
-          <Link to="/CurrencyRatesByDate">Получение данных за определенный день</Link>
+          <Link to="/CurrencyRatesByDate">Курсы валют</Link>
         </li>
         <li>
-          <Link to="/CurrencyRatesByPeriod">Отображение курса любой валюты в динамике</Link>
+          <Link to="/CurrencyRatesByPeriod">Динамика курсов</Link>
         </li>
         <li>
           <Link to="/CurrencyConverter">Конвертер валют</Link>

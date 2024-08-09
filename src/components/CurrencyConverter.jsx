@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './currencyPeriod.css'
+
 const CurrencyConverter = () => {
   const [amount, setAmount] = useState(0);
   const [fromCurrency, setFromCurrency] = useState('USD');
@@ -43,7 +44,9 @@ const CurrencyConverter = () => {
 
   return (
     <div>
-      <h1>Currency Converter</h1>
+      <header>  
+      <h1>Currency converter</h1>
+      </header>  
       <div>
         <label htmlFor="amount">Amount:</label>
         <input

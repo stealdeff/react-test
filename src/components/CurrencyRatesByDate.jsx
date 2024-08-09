@@ -19,7 +19,9 @@ const ExchangeRatesComponent = () => {
   };
   return (
     <div>
-      <h2>Exchange Rates</h2>
+      <header>  
+      <h1>Exchange Rates</h1>
+      </header>  
       <label>
         Date:
         <input type="date" value={date} onChange={handleDateChange} />

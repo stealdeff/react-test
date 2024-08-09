@@ -58,9 +58,9 @@ const CurrencyDynamicsScreen = () => {
 
   return (
     <div>
-        
-      <h1>Экран отображения курса любой валюты в динамике</h1>
-
+      <header>
+      <h1>The exchange rate in dynamics</h1>
+      </header>  
       <form onSubmit={handleSubmit}>
         <label>
           Дата с:
@@ -81,7 +81,7 @@ const CurrencyDynamicsScreen = () => {
             ))}
           </select>
         </label>
-        <button type="submit">Отправить запрос</button>
+        <button type="submit">Send a request</button>
       </form>
 
       {error && <div style={{ color: 'red' }}>{error}</div>}
