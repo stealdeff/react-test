@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import './currencyPeriod.css'
 const CurrencyConverter = () => {
   const [amount, setAmount] = useState(0);
   const [fromCurrency, setFromCurrency] = useState('USD');
@@ -81,7 +81,7 @@ const CurrencyConverter = () => {
           ))}
         </select>
       </div>
-      <p>Result: {result}</p>
+      <p id="res">Result: {result}</p>
     </div>
   );
 };
