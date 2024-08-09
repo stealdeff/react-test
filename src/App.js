@@ -5,7 +5,9 @@ import ExchangeRatesComponent from './components/CurrencyRatesByDate';
 import DinamicRatesComponent from './components/CurrencyRatesByPeriod';
 import Converter from './components/CurrencyConverter';
 import './Project.css';
+
 const App = ()=>{
+
   return(
   <Router>
     <div class="container">
@@ -35,6 +37,7 @@ const App = ()=>{
       <Route path="/CurrencyRatesByPeriod" element={<DinamicRatesComponent />} />
       <Route path="/CurrencyConverter" element={<Converter />} />
     </Routes>
+    
     </div>
   </Router>
 );
